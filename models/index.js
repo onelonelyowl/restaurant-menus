@@ -1,6 +1,11 @@
 const {Restaurant} = require('./Restaurant')
 const {Menu} = require('./Menu')
-const testRestaurants = new Restaurant()
-        //testRestaurants.create({name: "name", location: "londinium", cuisine: "quaseen"})
-console.log(testRestaurants)
-module.exports = { Restaurant, Menu }
+const {Item} = require('./Item')
+
+Restaurant.hasMany(Menu)
+Menu.belongsTo(Restaurant);
+
+Menu.belongsToMany(Item, {through: "menu-item"})
+Item.belongsToMany(Menu, {through: "menu-item"})
+
+module.exports = { Restaurant, Menu, Item }
